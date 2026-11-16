@@ -51,10 +51,34 @@ table{border-collapse:collapse;width:100%;min-width:930px}th,td{padding:11px 10p
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}.seg button{border-radius:0;background:white;color:#34415a;padding:4px 10px;font-size:12px}.seg button.on{background:#e8efff;color:#23417d}
 .st{display:inline-block;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:650}
 .st.ok{background:#e6f6ed;color:var(--green)}.st.warn{background:#fdf0dc;color:#9a6410}.st.info{background:#e8efff;color:var(--blue)}.st.muted{background:#eef1f5;color:#697386}
-.pkg{font-size:11px;font-family:Consolas,monospace;min-width:270px;white-space:normal;word-break:break-all}
-td.note{white-space:normal;min-width:140px}table{min-width:1250px}.tablewrap{max-height:72vh}
+.pkg{font-size:11px;font-family:Consolas,monospace;max-width:230px;white-space:normal;word-break:break-all}
+td.note{white-space:normal;min-width:140px}table{min-width:1080px}.tablewrap{max-height:72vh}
 .admin-only{display:none}.is-admin .admin-only{display:revert}.is-admin .viewer-only{display:none}
 .status{color:#c7d2e5;font-size:12px}.banner{background:#fff4d6;border:1px solid #f1d58a;color:#6a4b00;padding:10px 14px;border-radius:10px;margin:12px 0}
+.qrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 12px}
+.qc{border:1px solid transparent;border-radius:10px;padding:8px 12px;text-align:left;font-weight:500;display:flex;flex-direction:column;gap:2px;width:100%}
+.qc small{font-size:11px;font-weight:500;line-height:1.25}.qc b{font-size:20px;font-weight:700;line-height:1.15}.qc.on{border-color:currentColor;box-shadow:0 0 0 2px #00000012}
+.qc.amber{background:#FAEEDA;color:#633806}.qc.green{background:#EAF3DE;color:#27500A}.qc.red{background:#FCEBEB;color:#791F1F}
+.stagebar{display:flex;gap:2px;height:36px;border-radius:8px;overflow:hidden}
+.sg{border-radius:0;padding:0;font-size:13px;font-weight:700;min-width:0;display:flex;align-items:center;justify-content:center}.sg.dim{opacity:.35}.sg.on{outline:2px solid var(--ink);outline-offset:-2px}
+.stagelegend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:12px}
+.stagelegend button{background:none;color:var(--ink);padding:2px 6px;border-radius:6px;font-weight:500;font-size:12px}.stagelegend button.on{background:#e8efff;font-weight:700}
+.stagelegend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+.midrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:12px;margin:0 0 15px;align-items:stretch}
+@media(max-width:850px){.midrow{grid-template-columns:1fr}.qrow{grid-template-columns:1fr 1fr}}
+.hrows{display:grid;gap:2px;max-height:230px;overflow-y:auto}
+.hrow{display:grid;grid-template-columns:92px 1fr 28px;align-items:center;gap:8px;background:none;color:var(--ink);padding:4px 6px;border-radius:7px;font-weight:500;font-size:12px;text-align:left}
+.hrow:hover{background:#f1f5ff}.hrow.on{background:#e8efff;font-weight:700}.hrow .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hrow b{text-align:right}
+.hrow .bar{height:10px}.hrow .bar i{background:var(--blue)}
+.tlchart{display:flex;align-items:flex-end;gap:6px;overflow-x:auto;padding:2px 2px 6px;min-height:150px}
+.tcol{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:34px;flex:1;border-radius:7px;padding:2px 2px 0}.tcol.on{background:#e8efff}
+.tcol .tot{font-size:10px;color:var(--muted);font-weight:700;cursor:pointer}.tcol .tlab{font-size:10px;color:var(--muted);cursor:pointer;white-space:nowrap}.tcol.on .tlab{color:var(--blue);font-weight:700}
+.stack{display:flex;flex-direction:column-reverse;gap:1px;width:100%;justify-content:flex-start}
+.stack button{padding:0;border-radius:2px;width:100%;min-height:3px}.stack .sent{background:#378ADD}.stack .con{background:#EF9F27}.stack .abd{background:#1D9E75}.stack button.dim{opacity:.3}.stack button.on{outline:2px solid var(--ink)}
+.tlkey{display:flex;gap:12px;font-size:11px;color:var(--muted);margin-top:4px}.tlkey i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px}
+.dt{font-size:11px;color:var(--muted);margin-top:3px}
+.days{font-weight:700}.days.w1{color:#9a6410}.days.w2{color:var(--red)}.days.w0{color:var(--muted)}
+th[data-sort]{cursor:pointer;user-select:none}th[data-sort]:hover{color:var(--blue)}
 .authfield{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}.authfield label{font-size:12px;color:var(--muted)}
 </style></head><body>
 <header><div><h1>Pending KPM · Lot 38</h1><small>List of Pending KPM At T2 Side · <span id="role">Viewer (read-only)</span></small><div class="status" id="status">Loading…</div></div>
@@ -67,10 +91,11 @@ td.note{white-space:normal;min-width:140px}table{min-width:1250px}.tablewrap{max
 <div class="wrap">
 <div id="banner"></div>
 <div class="kpis" id="kpis"></div>
-<div class="toprow">
-<section class="card tlcard"><div class="sectionhead"><h2>Timeline</h2><div style="display:flex;gap:6px;align-items:center"><div class="seg"><button id="modeMonth" class="on">Month</button><button id="modeWeek">Week</button></div><button class="ghost" id="clearTl">Clear</button></div></div><div class="timeline" id="timeline"></div></section>
-<section class="card dcard"><h2>By LOT</h2><div id="donutLot"></div></section>
-<section class="card dcard"><h2>By Holder</h2><div id="donutHolder"></div></section>
+<div class="qrow" id="qrow"></div>
+<section class="card" style="margin:0 0 12px"><div class="sectionhead" style="margin-bottom:10px"><h2>Where each KPM is now</h2><span class="hint">Click a segment to filter the table</span></div><div class="stagebar" id="stagebar"></div><div class="stagelegend" id="stagelegend"></div></section>
+<div class="midrow">
+<section class="card"><div class="sectionhead" style="margin-bottom:8px"><h2>Open KPM per holder</h2></div><div class="hrows" id="hrows"></div></section>
+<section class="card"><div class="sectionhead" style="margin-bottom:8px"><h2>Timeline</h2><div style="display:flex;gap:6px;align-items:center"><div class="seg"><button id="modeMonth" class="on">Month</button><button id="modeWeek">Week</button></div><button class="ghost" id="clearTl" style="padding:4px 9px;font-size:12px">Clear</button></div></div><div class="tlchart" id="tlchart"></div><div class="tlkey"><span><i style="background:#378ADD"></i>Sent</span><span><i style="background:#EF9F27"></i>Construction</span><span><i style="background:#1D9E75"></i>ABD</span></div></section>
 </div>
 <div class="filters">
 <input id="search" placeholder="Search Milestone / Package …">
@@ -78,7 +103,7 @@ td.note{white-space:normal;min-width:140px}table{min-width:1250px}.tablewrap{max
 <select id="hacFilter"></select><select id="conFilter"></select><select id="abdFilter"></select>
 </div>
 <section class="card"><div class="sectionhead"><h2>Pending KPM Records</h2><span class="hint" id="count"></span></div>
-<div class="tablewrap"><table><thead><tr><th>SR</th><th>LOT</th><th>Milestone No.</th><th>Package</th><th>HAC Status</th><th>Sent Date</th><th>Construction Team</th><th>Date</th><th>ABD Team</th><th>Date</th><th>Holder</th><th>Notes</th><th class="admin-only">Action</th></tr></thead><tbody id="tbody"></tbody></table></div></section>
+<div class="tablewrap"><table><thead><tr><th data-sort="sr">SR</th><th data-sort="lot">LOT</th><th data-sort="milestone">Milestone / Package</th><th data-sort="hac">HAC Status</th><th data-sort="con">Construction Team</th><th data-sort="abd">ABD Team</th><th data-sort="holder">Holder</th><th>Notes</th><th data-sort="days">Days</th><th class="admin-only">Action</th></tr></thead><tbody id="tbody"></tbody></table></div></section>
 </div>
 
 <div class="overlay" id="overlay"><div class="modal"><h2 id="modalTitle">Add KPM</h2><form id="recordForm"><div class="formgrid" id="formFields"></div><div class="modalfoot"><button type="button" class="ghost" id="cancelBtn">Cancel</button><button type="submit">Save record</button></div></form></div></div>
@@ -124,66 +149,96 @@ async function load(){
 }
 let loadTimer=null;const loadSoon=()=>{clearTimeout(loadTimer);loadTimer=setTimeout(load,400)};
 
-/* ---------- timeline helpers ---------- */
+/* ---------- helpers ---------- */
+const COLOR={ok:'#1D9E75',warn:'#EF9F27',info:'#378ADD',muted:'#B4B2A9'};
+const statColor=v=>v===BLANK?COLOR.muted:COLOR[stClass(v)];
+const TODAY=(()=>{const d=new Date();return Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())})();
+const daysOf=r=>r.sent_date?Math.max(0,Math.floor((TODAY-Date.parse(r.sent_date+'T00:00:00Z'))/864e5)):null;
+const has=(v,w)=>String(v||'').toLowerCase().includes(w);
+function stage(r){const c=r.construction_status,a=r.abd_status;
+ if(a==='Signed'&&c==='Signed')return 'final';
+ if(a)return 'abd';
+ if(c==='Signed')return 'conSigned';
+ if(c)return 'con';
+ return 'wait'}
+const STAGES=[['wait','Waiting for Construction','#B4B2A9','#2C2C2A'],['con','At Construction','#378ADD','#fff'],['conSigned','Signed by Construction, waiting ABD','#EF9F27','#412402'],['abd','At ABD','#7F77DD','#fff'],['final','Signed by ABD, waiting final approval','#1D9E75','#fff']];
+const QF={wait:r=>stage(r)==='wait',con:r=>stage(r)==='con',conSigned:r=>stage(r)==='conSigned',abd:r=>stage(r)==='abd',final:r=>stage(r)==='final',
+ comments:r=>has(r.construction_status,'comment')||has(r.abd_status,'comment'),over60:r=>(daysOf(r)??-1)>60};
+const QNAME={comments:'Comments awaiting reply',over60:'Pending over 60 days',...Object.fromEntries(STAGES.map(s=>[s[0],s[1]]))};
+let qf=null,sort={k:'sr',dir:1};
+
+/* timeline */
 function pkey(d){if(!d)return null;if(tlMode==='month')return d.slice(0,7);const dt=new Date(d+'T00:00:00Z');dt.setUTCDate(dt.getUTCDate()-((dt.getUTCDay()+6)%7));return dt.toISOString().slice(0,10)}
 function plabel(k){return tlMode==='month'?new Date(k+'-01T00:00:00Z').toLocaleDateString('en-GB',{month:'long',year:'numeric',timeZone:'UTC'}):'Week of '+new Date(k+'T00:00:00Z').toLocaleDateString('en-GB',{day:'2-digit',month:'short',timeZone:'UTC'})}
+function pshort(k,prev){const yy=k.slice(2,4),yr=(!prev||prev.slice(0,4)!==k.slice(0,4))?" '"+yy:'';return tlMode==='month'?new Date(k+'-01T00:00:00Z').toLocaleDateString('en-GB',{month:'short',timeZone:'UTC'})+yr:new Date(k+'T00:00:00Z').toLocaleDateString('en-GB',{day:'2-digit',month:'short',timeZone:'UTC'})+yr}
 
 /* ---------- filtering ---------- */
-function match(r,skip){
+function match(r){
   const q=$('search').value.trim().toLowerCase();
   if(q&&!(String(r.milestone).toLowerCase().includes(q)||String(r.package).toLowerCase().includes(q)))return false;
   const lot=$('lotFilter').value,h=$('holderFilter').value;
   if(lot&&(r.lot||'—')!==lot)return false;
   if(h&&holderKey(r)!==h)return false;
   for(const [k,f] of COLS){const v=$(k+'Filter').value;if(v&&val(r,f)!==v)return false}
-  if(tl.p&&skip!=='tl'){const ev=tl.t?EVS.filter(e=>e[0]===tl.t):EVS;if(!ev.some(([,f])=>pkey(r[f])===tl.p))return false}
+  if(qf&&!QF[qf](r))return false;
+  if(tl.p){const ev=tl.t?EVS.filter(e=>e[0]===tl.t):EVS;if(!ev.some(([,f])=>pkey(r[f])===tl.p))return false}
   return true}
-const filtered=()=>records.filter(r=>match(r));
+const filtered=()=>records.filter(match);
+function sorted(a){const g={sr:r=>Number(r.sr),lot:r=>r.lot||'',milestone:r=>r.milestone,hac:r=>r.hac_status||'',con:r=>r.construction_status||'',abd:r=>r.abd_status||'',holder:r=>holderKey(r),days:r=>daysOf(r)}[sort.k];
+ return a.slice().sort((x,y)=>{const u=g(x),v=g(y),bx=u===null||u==='',by=v===null||v==='';if(bx!==by)return bx?1:-1;
+  const c=typeof u==='number'&&typeof v==='number'?u-v:String(u).localeCompare(String(v),undefined,{numeric:true});return c*sort.dir||(Number(x.sr)-Number(y.sr))})}
 
 /* ---------- render ---------- */
 function fillSelect(id,all,values,blankLabel){const cur=$(id).value;
   $(id).innerHTML=`<option value="">${all}</option>`+(blankLabel?`<option value="${BLANK}" ${cur===BLANK?'selected':''}>${blankLabel}</option>`:'')+values.map(x=>`<option ${cur===x?'selected':''} value="${esc(x)}">${esc(x)}</option>`).join('')}
-const PAL=['#2457d6','#14804a','#b7791f','#c53b43','#7b3fb4','#0e8fa3','#d4672a','#5b6b86','#a3367a','#4f8a10'];
-function donut(segs,center,cap){const tot=segs.reduce((a,s)=>a+s.v,0);let off=25,arcs='';
- if(tot>0)segs.forEach(s=>{if(s.v<=0)return;const pct=s.v/tot*100;arcs+=`<circle cx="21" cy="21" r="15.9155" fill="none" stroke="${s.c}" stroke-width="5.2" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="${off}"/>`;off-=pct});
- return `<svg viewBox="0 0 42 42" role="img"><circle cx="21" cy="21" r="15.9155" fill="none" stroke="#eef2f8" stroke-width="5.2"/>${arcs}<text class="ctr" x="21" y="22.6" text-anchor="middle">${center}</text><text class="cap" x="21" y="27" text-anchor="middle">${cap}</text></svg>`}
 function countBy(fn){const m={};records.forEach(r=>{const k=fn(r);m[k]=(m[k]||0)+1});return Object.entries(m).sort((a,b)=>b[1]-a[1]||String(a[0]).localeCompare(String(b[0]),undefined,{numeric:true}))}
-function donutBlock(id,entries,cur,attr,cap){const segs=entries.map(([k,v],i)=>({k,v,c:PAL[i%PAL.length]}));
- $(id).innerHTML=`<div class="donut">${donut(segs.map(s=>({v:s.v,c:s.c})),records.length,cap)}<div class="legend">${segs.map(s=>`<button type="button" ${attr}="${esc(s.k)}" class="${cur===s.k?'on':''}"><i style="background:${s.c}"></i>${esc(s.k)}<b>${s.v}</b></button>`).join('')||'<span class="hint">No data</span>'}</div></div>`}
 
 function render(){
   document.body.classList.toggle('is-admin',isAdmin);
   $('role').textContent=isAdmin?'Admin':'Viewer (read-only)';
-  const data=filtered(),n=records.length;
+  const data=sorted(filtered()),n=records.length;
   /* status cards */
   $('kpis').innerHTML=`<div class="card"><div class="kpi-label">Total KPM</div><div class="kpi-value">${n}</div><div class="hint" style="margin-top:4px">${data.length===n?'All records':data.length+' match filters'}</div></div>`+
-   COLS.map(([k,f,title,color])=>{const cur=$(k+'Filter').value,cnt=countBy(r=>val(r,f));
-    return `<div class="card sc"><div class="kpi-label">${title}</div><div class="rows">${cnt.map(([v,c])=>`<button type="button" class="srow ${v===BLANK?'blank':''} ${cur===v?'on':''}" data-col="${k}" data-val="${esc(v)}"><span class="nm">${v===BLANK?'No status yet':esc(v)}</span><b>${c}</b><span class="mini"><i style="width:${n?c/n*100:0}%;background:${v===BLANK?'#b9c2d1':color}"></i></span></button>`).join('')}</div></div>`}).join('');
+   COLS.map(([k,f,title])=>{const cur=$(k+'Filter').value,cnt=countBy(r=>val(r,f));
+    return `<div class="card sc"><div class="kpi-label">${title}</div><div class="rows">${cnt.map(([v,c])=>`<button type="button" class="srow ${v===BLANK?'blank':''} ${cur===v?'on':''}" data-col="${k}" data-val="${esc(v)}"><span class="nm">${v===BLANK?'No status yet':esc(v)}</span><b>${c}</b><span class="mini"><i style="width:${n?c/n*100:0}%;background:${statColor(v)}"></i></span></button>`).join('')}</div></div>`}).join('');
+  /* quick cards */
+  const qn=k=>records.filter(QF[k]).length;
+  const Q=[['conSigned','Signed by Construction, waiting ABD','amber'],['final','Signed by ABD, waiting final approval','green'],['comments','Comments awaiting reply','amber'],['over60','Pending over 60 days','red']];
+  $('qrow').innerHTML=Q.map(([k,l,c])=>`<button type="button" class="qc ${c} ${qf===k?'on':''}" data-q="${k}"><small>${l}</small><b>${qn(k)}</b></button>`).join('');
+  /* stage bar */
+  const sc={};STAGES.forEach(([k])=>sc[k]=qn(k));
+  $('stagebar').innerHTML=STAGES.filter(s=>sc[s[0]]).map(([k,l,bg,fg])=>`<button type="button" class="sg ${qf===k?'on':''} ${qf&&qf!==k?'dim':''}" data-q="${k}" style="flex:${sc[k]};background:${bg};color:${fg}" title="${esc(l)}: ${sc[k]}">${sc[k]}</button>`).join('');
+  $('stagelegend').innerHTML=STAGES.map(([k,l,bg])=>`<button type="button" class="${qf===k?'on':''}" data-q="${k}"><i style="background:${bg}"></i>${esc(l)} · ${sc[k]}</button>`).join('');
   /* selects */
   const uniq=a=>[...new Set(a)].sort((x,y)=>String(x).localeCompare(String(y),undefined,{numeric:true}));
   fillSelect('lotFilter','All LOTs',uniq(records.map(r=>r.lot||'—')));
   fillSelect('holderFilter','All Holders',uniq(records.map(holderKey)));
   COLS.forEach(([k,f,title])=>fillSelect(k+'Filter','All '+title.replace(' Team Status','').replace(' Status',''),uniq(records.map(r=>r[f]).filter(Boolean)),'No status yet'));
-  /* donuts */
-  donutBlock('donutLot',countBy(r=>r.lot||'—'),$('lotFilter').value,'data-lot','KPM');
-  donutBlock('donutHolder',countBy(holderKey),$('holderFilter').value,'data-holder','KPM');
-  /* timeline */
+  /* holders */
+  const hs=countBy(holderKey),hmax=Math.max(1,...hs.map(x=>x[1])),hcur=$('holderFilter').value;
+  $('hrows').innerHTML=hs.map(([k,v])=>`<button type="button" class="hrow ${hcur===k?'on':''}" data-holder="${esc(k)}"><span class="nm" title="${esc(k)}">${esc(k)}</span><span class="bar"><i style="width:${v/hmax*100}%;${k==='Unassigned'?'background:#B4B2A9':''}"></i></span><b>${v}</b></button>`).join('')||'<span class="hint">No data</span>';
+  /* timeline columns */
   const per={};records.forEach(r=>EVS.forEach(([t,f])=>{const k=pkey(r[f]);if(!k)return;(per[k]=per[k]||{sent:0,con:0,abd:0})[t]++}));
-  $('timeline').innerHTML=Object.keys(per).sort().reverse().map(k=>{const p=per[k];return `<div class="time-row ${tl.p===k?'active':''}"><div class="time-date"><button class="time-select" type="button" data-p="${k}" aria-pressed="${tl.p===k&&!tl.t}">${plabel(k)}</button></div><div class="time-items"><div class="time-kpms">${EVS.filter(([t])=>p[t]).map(([t,,nm])=>`<button type="button" class="ev ${t} ${tl.p===k&&tl.t===t?'on':''}" data-p="${k}" data-t="${t}">${nm} ${p[t]}</button>`).join('')}</div></div></div>`}).join('')||'<span class="hint">No dates</span>';
+  const keys=Object.keys(per).sort(),mx=Math.max(1,...keys.map(k=>per[k].sent+per[k].con+per[k].abd)),sc2=100/mx;
+  $('tlchart').innerHTML=keys.map((k,i)=>{const p=per[k],tot=p.sent+p.con+p.abd,on=tl.p===k;
+    return `<div class="tcol ${on?'on':''}"><div class="tot" data-p="${k}">${tot}</div><div class="stack">${EVS.filter(([t])=>p[t]).map(([t,,nm])=>`<button type="button" class="${t} ${on&&tl.t===t?'on':''} ${on&&tl.t&&tl.t!==t?'dim':''}" data-p="${k}" data-t="${t}" style="height:${Math.max(3,Math.round(p[t]*sc2))}px" title="${plabel(k)} · ${nm} ${p[t]}"></button>`).join('')}</div><div class="tlab" data-p="${k}">${pshort(k,keys[i-1])}</div></div>`}).join('')||'<span class="hint">No dates</span>';
   $('modeMonth').classList.toggle('on',tlMode==='month');$('modeWeek').classList.toggle('on',tlMode==='week');
   /* table */
-  $('tbody').innerHTML=data.map(r=>`<tr><td>${esc(r.sr)}</td><td>${esc(r.lot)}</td><td><b>${esc(r.milestone)}</b></td><td class="pkg">${esc(r.package)}</td><td>${stPill(r.hac_status)}</td><td>${dateLabel(r.sent_date)}</td><td>${stPill(r.construction_status)}</td><td>${dateLabel(r.construction_date)}</td><td>${stPill(r.abd_status)}</td><td>${dateLabel(r.abd_date)}</td><td>${esc(String(r.holder||'').replace(/\n/g,' · '))}</td><td class="note">${esc(r.notes)}</td><td class="rowactions admin-only"><button class="secondary" data-edit="${r.id}">Edit</button> <button class="ghost" data-del="${r.id}">Delete</button></td></tr>`).join('')||'<tr><td colspan="13">No matching records</td></tr>';
-  $('count').textContent=`Showing ${data.length} of ${n} records`+(tl.p?` · ${plabel(tl.p)}${tl.t?' · '+EVS.find(e=>e[0]===tl.t)[2]:''}`:'');
+  const dc=(s,d)=>`${stPill(s)}${d?`<div class="dt">${dateLabel(d)}</div>`:''}`;
+  $('tbody').innerHTML=data.map(r=>{const d=daysOf(r);return `<tr><td>${esc(r.sr)}</td><td>${esc(r.lot)}</td><td><b>${esc(r.milestone)}</b><div class="pkg" style="min-width:240px">${esc(r.package)}</div></td><td>${dc(r.hac_status,r.sent_date)}</td><td>${dc(r.construction_status,r.construction_date)}</td><td>${dc(r.abd_status,r.abd_date)}</td><td>${esc(String(r.holder||'').replace(/\n/g,' · '))}</td><td class="note">${esc(r.notes)}</td><td>${d===null?'—':`<span class="days ${d>60?'w2':d>30?'w1':'w0'}">${d}</span>`}</td><td class="rowactions admin-only"><button class="secondary" data-edit="${r.id}">Edit</button> <button class="ghost" data-del="${r.id}">Delete</button></td></tr>`}).join('')||'<tr><td colspan="10">No matching records</td></tr>';
+  document.querySelectorAll('th[data-sort]').forEach(th=>th.textContent=th.textContent.replace(/ [▲▼]$/,'')+(th.dataset.sort===sort.k?(sort.dir>0?' ▲':' ▼'):''));
+  $('count').textContent=`Showing ${data.length} of ${n} records`+(qf?` · ${QNAME[qf]}`:'')+(tl.p?` · ${plabel(tl.p)}${tl.t?' · '+EVS.find(e=>e[0]===tl.t)[2]:''}`:'');
 }
 
 /* ---------- events ---------- */
 const toggleSel=(id,v)=>{const s=$(id);s.value=s.value===v?'':v;render()};
 $('kpis').addEventListener('click',e=>{const b=e.target.closest('.srow');if(b)toggleSel(b.dataset.col+'Filter',b.dataset.val)});
-$('donutLot').addEventListener('click',e=>{const b=e.target.closest('[data-lot]');if(b)toggleSel('lotFilter',b.dataset.lot)});
-$('donutHolder').addEventListener('click',e=>{const b=e.target.closest('[data-holder]');if(b)toggleSel('holderFilter',b.dataset.holder)});
-$('timeline').addEventListener('click',e=>{const b=e.target.closest('button[data-p]');if(!b)return;const t=b.dataset.t||null;tl=(tl.p===b.dataset.p&&tl.t===t)?{p:null,t:null}:{p:b.dataset.p,t};render()});
+$('hrows').addEventListener('click',e=>{const b=e.target.closest('[data-holder]');if(b)toggleSel('holderFilter',b.dataset.holder)});
+for(const id of ['qrow','stagebar','stagelegend'])$(id).addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(!b)return;qf=qf===b.dataset.q?null:b.dataset.q;render()});
+$('tlchart').addEventListener('click',e=>{const b=e.target.closest('[data-p]');if(!b)return;const t=b.dataset.t||null;tl=(tl.p===b.dataset.p&&tl.t===t)?{p:null,t:null}:{p:b.dataset.p,t};render()});
 $('clearTl').onclick=()=>{tl={p:null,t:null};render()};
 $('modeMonth').onclick=()=>{tlMode='month';tl={p:null,t:null};render()};$('modeWeek').onclick=()=>{tlMode='week';tl={p:null,t:null};render()};
+document.querySelector('thead').addEventListener('click',e=>{const th=e.target.closest('th[data-sort]');if(!th)return;sort=sort.k===th.dataset.sort?{k:sort.k,dir:-sort.dir}:{k:th.dataset.sort,dir:1};render()});
 ['search','lotFilter','holderFilter','hacFilter','conFilter','abdFilter'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',render));
 $('tbody').addEventListener('click',async e=>{
   const eb=e.target.closest('button[data-edit]'),db=e.target.closest('button[data-del]');
