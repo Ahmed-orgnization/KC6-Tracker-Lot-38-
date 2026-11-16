@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pending KPM · Lot 38</title>
+<style>
+:root{--bg:#f4f6fa;--card:#fff;--ink:#172033;--muted:#6b7485;--line:#e6eaf0;--blue:#2457d6;--green:#14804a;--red:#c53b43;--amber:#b7791f}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Arial,sans-serif}
+header{background:#152544;color:white;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+header h1{font-size:20px;margin:0}header small{color:#c7d2e5}.wrap{max-width:1450px;margin:auto;padding:20px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}button,.filebtn{border:0;border-radius:9px;padding:10px 14px;font-weight:600;cursor:pointer;background:var(--blue);color:white}
+button.secondary,.filebtn.secondary{background:#e9eefb;color:#23417d}button.ghost{background:white;color:#34415a;border:1px solid var(--line)}
+input,select{padding:10px;border:1px solid #d9dfeb;border-radius:8px;background:white;color:var(--ink);min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:12px;margin:16px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px;box-shadow:0 2px 7px #17203308}
+.kpi-label{font-size:12px;color:var(--muted)}.kpi-value{font-size:27px;font-weight:700;margin-top:6px}.teamname{font-size:12px;color:var(--muted);font-weight:650}.teamcount{font-size:22px;font-weight:750;margin:6px 0}.bar{height:7px;border-radius:9px;background:#edf1f6;overflow:hidden}.bar>i{display:block;height:100%;background:var(--green);border-radius:9px;transition:width .25s}.teammeta{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-top:8px}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:9px;margin-bottom:15px}
+.layout{display:block}
+h2{font-size:16px;margin:0 0 12px}.timeline{display:grid;gap:12px}.time-row{display:grid;grid-template-columns:112px 1fr;gap:12px;align-items:start}.time-select{position:relative;z-index:2;display:inline-block;pointer-events:auto;border:0;background:transparent;color:var(--ink);font:inherit;font-weight:750;padding:6px 8px;margin:-6px -8px;border-radius:7px;text-align:left;cursor:pointer;text-decoration:underline;text-decoration-color:#b8c7df;text-underline-offset:3px}.time-select:hover{color:var(--blue);background:#f1f5ff}.time-select:focus-visible{outline:2px solid var(--blue);outline-offset:2px}.time-select[aria-pressed="true"]{color:var(--blue);text-decoration-color:var(--blue)}.time-items{border-left:2px solid #dce5f2;padding:0 0 8px 14px;position:relative}.time-items:before{content:"";position:absolute;left:-6px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--blue);border:2px solid #fff;box-shadow:0 0 0 1px #dce5f2}.time-row.active .time-items{border-left-color:var(--blue)}.time-row.active .time-items:before{background:var(--green);box-shadow:0 0 0 2px #d8f0e5}.time-count{font-size:11px;color:var(--muted);margin-bottom:5px}.time-kpms{display:flex;flex-wrap:wrap;gap:6px}.time-kpms span{background:#f1f5fb;color:#29477e;border-radius:6px;padding:4px 7px;font-size:11px;font-weight:650}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:11px;background:white}
+table{border-collapse:collapse;width:100%;min-width:930px}th,td{padding:11px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}th{background:#f7f8fb;color:#566176;font-size:12px;position:sticky;top:0}tr:last-child td{border:0}
+.pill{display:inline-flex;align-items:center;justify-content:center;min-width:30px;padding:4px 8px;border-radius:20px;font-weight:700}.yes{background:#e6f6ed;color:var(--green)}.no{background:#fdebed;color:var(--red)}.unknown{background:#eef1f5;color:#697386}
+.rowactions button{padding:6px 9px;font-size:12px}.hint{color:var(--muted);font-size:12px}.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.overlay{display:none;position:fixed;inset:0;background:#10182788;align-items:center;justify-content:center;padding:15px;z-index:5}.modal{background:white;border-radius:14px;padding:20px;width:min(620px,100%);max-height:90vh;overflow:auto}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:12px;color:var(--muted)}.modal h2{margin-bottom:16px}.modalfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+@media(max-width:850px){.kpis{grid-template-columns:repeat(5,150px);overflow-x:auto;padding-bottom:5px}.filters{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.wrap{padding:12px}.filters{grid-template-columns:1fr 1fr}.filters input:first-child{grid-column:1/-1}.formgrid{grid-template-columns:1fr 1fr}header{padding:15px}.kpi-value{font-size:23px}}
+
+
+.toprow{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(190px,1fr) minmax(190px,1fr);gap:12px;margin:0 0 15px;align-items:stretch}
+.tlcard{padding:12px}.tlcard h2,.dcard h2{margin:0;font-size:14px}.tlcard .sectionhead{margin-bottom:8px}.tlcard .ghost{padding:4px 9px;font-size:12px}
+.tlcard .timeline{gap:5px;max-height:215px;overflow-y:auto;padding-right:4px}
+.tlcard .time-row{grid-template-columns:92px 1fr;gap:8px}.tlcard .time-select{font-size:12px}
+.tlcard .time-items{padding:0 0 4px 12px}.tlcard .time-count{font-size:10px;margin-bottom:3px}.tlcard .time-kpms{gap:4px}.tlcard .time-kpms span{padding:2px 6px;font-size:10px}
+.dcard{padding:12px;display:flex;flex-direction:column}.dcard h2{margin-bottom:6px}
+.donut{display:flex;flex-direction:column;align-items:center;gap:8px}
+.donut svg{width:122px;height:122px;flex:none}.donut .ctr{font-size:6.4px;font-weight:800;fill:var(--ink)}.donut .cap{font-size:2.8px;fill:var(--muted)}
+.legend{width:100%;max-height:96px;overflow-y:auto;display:grid;gap:2px;font-size:11px}
+.legend button,.legend div{display:flex;align-items:center;gap:6px;border:0;background:none;font:inherit;color:var(--ink);padding:1px 2px;border-radius:5px;text-align:left}
+.legend button{cursor:pointer}.legend button:hover{background:#f1f5ff}.legend button.on{background:#e8efff;font-weight:700}
+.legend i{width:9px;height:9px;border-radius:50%;flex:none}.legend b{margin-left:auto}
+@media(max-width:850px){.toprow{grid-template-columns:1fr 1fr}.tlcard{grid-column:1/-1}}
+.kpis{grid-template-columns:minmax(120px,.7fr) repeat(3,minmax(0,1fr))}
+@media(max-width:850px){.kpis{grid-template-columns:130px repeat(3,225px)}}
+.filters{grid-template-columns:2fr repeat(5,1fr)}
+@media(max-width:850px){.filters{grid-template-columns:1fr 1fr}.filters input:first-child{grid-column:1/-1}}
+.sc{padding:12px}.sc .rows{display:grid;gap:1px;margin-top:6px}
+.srow{display:grid;grid-template-columns:1fr auto;gap:2px 8px;background:none;color:var(--ink);padding:4px 6px;border-radius:7px;width:100%;text-align:left;font-weight:500;font-size:12px}
+.srow:hover{background:#f1f5ff}.srow.on{background:#e8efff;font-weight:700}.srow b{font-weight:750}
+.srow .mini{grid-column:1/-1;height:4px;background:#edf1f6;border-radius:4px;overflow:hidden}.srow .mini i{display:block;height:100%;border-radius:4px}
+.srow.blank .nm{color:var(--muted);font-style:italic}
+.ev{border:0;border-radius:999px;padding:2px 9px;font-size:11px;font-weight:700;cursor:pointer}
+.ev.sent{background:#e8efff;color:#2457d6}.ev.con{background:#fdf0dc;color:#9a6410}.ev.abd{background:#e3f4ea;color:#14804a}.ev.on{outline:2px solid currentColor}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}.seg button{border-radius:0;background:white;color:#34415a;padding:4px 10px;font-size:12px}.seg button.on{background:#e8efff;color:#23417d}
+.st{display:inline-block;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:650}
+.st.ok{background:#e6f6ed;color:var(--green)}.st.warn{background:#fdf0dc;color:#9a6410}.st.info{background:#e8efff;color:var(--blue)}.st.muted{background:#eef1f5;color:#697386}
+.pkg{font-size:11px;font-family:Consolas,monospace;min-width:270px;white-space:normal;word-break:break-all}
+td.note{white-space:normal;min-width:140px}table{min-width:1250px}.tablewrap{max-height:72vh}
+.admin-only{display:none}.is-admin .admin-only{display:revert}.is-admin .viewer-only{display:none}
+.status{color:#c7d2e5;font-size:12px}.banner{background:#fff4d6;border:1px solid #f1d58a;color:#6a4b00;padding:10px 14px;border-radius:10px;margin:12px 0}
+.authfield{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}.authfield label{font-size:12px;color:var(--muted)}
+</style></head><body>
+<header><div><h1>Pending KPM · Lot 38</h1><small>List of Pending KPM At T2 Side · <span id="role">Viewer (read-only)</span></small><div class="status" id="status">Loading…</div></div>
+<div class="actions">
+<button class="secondary viewer-only" id="loginBtn">Admin login</button>
+<label class="filebtn secondary admin-only" for="excelFile">Import Excel</label><input id="excelFile" type="file" accept=".xlsx,.xls,.xlsb,.csv" hidden>
+<button class="secondary admin-only" id="exportBtn">Export Excel</button><button class="admin-only" id="addBtn">+ Add KPM</button>
+<button class="ghost admin-only" id="logoutBtn">Logout</button>
+</div></header>
+<div class="wrap">
+<div id="banner"></div>
+<div class="kpis" id="kpis"></div>
+<div class="toprow">
+<section class="card tlcard"><div class="sectionhead"><h2>Timeline</h2><div style="display:flex;gap:6px;align-items:center"><div class="seg"><button id="modeMonth" class="on">Month</button><button id="modeWeek">Week</button></div><button class="ghost" id="clearTl">Clear</button></div></div><div class="timeline" id="timeline"></div></section>
+<section class="card dcard"><h2>By LOT</h2><div id="donutLot"></div></section>
+<section class="card dcard"><h2>By Holder</h2><div id="donutHolder"></div></section>
+</div>
+<div class="filters">
+<input id="search" placeholder="Search Milestone / Package …">
+<select id="lotFilter"></select><select id="holderFilter"></select>
+<select id="hacFilter"></select><select id="conFilter"></select><select id="abdFilter"></select>
+</div>
+<section class="card"><div class="sectionhead"><h2>Pending KPM Records</h2><span class="hint" id="count"></span></div>
+<div class="tablewrap"><table><thead><tr><th>SR</th><th>LOT</th><th>Milestone No.</th><th>Package</th><th>HAC Status</th><th>Sent Date</th><th>Construction Team</th><th>Date</th><th>ABD Team</th><th>Date</th><th>Holder</th><th>Notes</th><th class="admin-only">Action</th></tr></thead><tbody id="tbody"></tbody></table></div></section>
+</div>
+
+<div class="overlay" id="overlay"><div class="modal"><h2 id="modalTitle">Add KPM</h2><form id="recordForm"><div class="formgrid" id="formFields"></div><div class="modalfoot"><button type="button" class="ghost" id="cancelBtn">Cancel</button><button type="submit">Save record</button></div></form></div></div>
+<div class="overlay" id="loginOverlay"><div class="modal" style="width:min(380px,100%)"><h2>Admin login</h2><form id="loginForm">
+<div class="authfield"><label>Email</label><input type="email" id="loginEmail" required autocomplete="username"></div>
+<div class="authfield"><label>Password</label><input type="password" id="loginPass" required autocomplete="current-password"></div>
+<div class="modalfoot"><button type="button" class="ghost" id="loginCancel">Cancel</button><button type="submit">Login</button></div></form></div></div>
+
+<script>
+window.M29_CONFIG={
+  SUPABASE_URL:"https://msuahswmycpxzvfnaelg.supabase.co",
+  SUPABASE_ANON_KEY:"sb_publishable_nuTpUlygkRHaqqL-NyRzBA_wMviDSNP"
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script>
+const CFG=window.M29_CONFIG;
+const sb=window.supabase?supabase.createClient(CFG.SUPABASE_URL,CFG.SUPABASE_ANON_KEY):null;
+const T='lot38_records',BLANK='__blank__';
+const COLS=[['hac','hac_status','HAC Status','#2457d6'],['con','construction_status','Construction Team Status','#b7791f'],['abd','abd_status','ABD Team Status','#14804a']];
+const EVS=[['sent','sent_date','Sent'],['con','construction_date','Construction'],['abd','abd_date','ABD']];
+const FORM=[['sr','SR','number'],['lot','LOT','text'],['milestone','Milestone No.','text'],['package','Package','text'],['hac_status','HAC Status','text','dl_hac_status'],['sent_date','Sent Date','date'],['construction_status','Construction Team Status','text','dl_construction_status'],['construction_date','Construction Date','date'],['abd_status','ABD Team Status','text','dl_abd_status'],['abd_date','ABD Date','date'],['holder','Holder','text'],['notes','Notes','text']];
+let records=[],isAdmin=false,editingId=null,tlMode='month',tl={p:null,t:null};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fail=(e,ctx)=>alert((ctx?ctx+': ':'')+(e&&e.message?e.message:e));
+const dateLabel=s=>{if(!s)return '';const d=new Date(s+'T00:00:00Z');return isNaN(d)?s:d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric',timeZone:'UTC'})};
+const holderKey=r=>String(r.holder||'').split('\n')[0].trim()||'Unassigned';
+const val=(r,f)=>r[f]||BLANK;
+const stClass=s=>{if(!s)return 'muted';s=s.toLowerCase();return s.includes('signed')?'ok':s.includes('comment')?'warn':s.includes('under review')?'info':'muted'};
+const stPill=s=>s?`<span class="st ${stClass(s)}">${esc(s)}</span>`:'<span class="st muted">—</span>';
+
+/* ---------- data ---------- */
+async function load(){
+  if(!sb){$('status').textContent='Not connected';return}
+  const {data,error}=await sb.from(T).select('*').order('sr',{ascending:true}).range(0,4999);
+  if(error){$('status').textContent='Load error: '+error.message;return}
+  records=data||[];
+  const last=records.map(r=>r.updated_at).filter(Boolean).sort().pop();
+  $('status').textContent=last?('Last data update: '+new Date(last).toLocaleString('en-GB')):'No data yet';
+  render();
+}
+let loadTimer=null;const loadSoon=()=>{clearTimeout(loadTimer);loadTimer=setTimeout(load,400)};
+
+/* ---------- timeline helpers ---------- */
+function pkey(d){if(!d)return null;if(tlMode==='month')return d.slice(0,7);const dt=new Date(d+'T00:00:00Z');dt.setUTCDate(dt.getUTCDate()-((dt.getUTCDay()+6)%7));return dt.toISOString().slice(0,10)}
+function plabel(k){return tlMode==='month'?new Date(k+'-01T00:00:00Z').toLocaleDateString('en-GB',{month:'long',year:'numeric',timeZone:'UTC'}):'Week of '+new Date(k+'T00:00:00Z').toLocaleDateString('en-GB',{day:'2-digit',month:'short',timeZone:'UTC'})}
+
+/* ---------- filtering ---------- */
+function match(r,skip){
+  const q=$('search').value.trim().toLowerCase();
+  if(q&&!(String(r.milestone).toLowerCase().includes(q)||String(r.package).toLowerCase().includes(q)))return false;
+  const lot=$('lotFilter').value,h=$('holderFilter').value;
+  if(lot&&(r.lot||'—')!==lot)return false;
+  if(h&&holderKey(r)!==h)return false;
+  for(const [k,f] of COLS){const v=$(k+'Filter').value;if(v&&val(r,f)!==v)return false}
+  if(tl.p&&skip!=='tl'){const ev=tl.t?EVS.filter(e=>e[0]===tl.t):EVS;if(!ev.some(([,f])=>pkey(r[f])===tl.p))return false}
+  return true}
+const filtered=()=>records.filter(r=>match(r));
+
+/* ---------- render ---------- */
+function fillSelect(id,all,values,blankLabel){const cur=$(id).value;
+  $(id).innerHTML=`<option value="">${all}</option>`+(blankLabel?`<option value="${BLANK}" ${cur===BLANK?'selected':''}>${blankLabel}</option>`:'')+values.map(x=>`<option ${cur===x?'selected':''} value="${esc(x)}">${esc(x)}</option>`).join('')}
+const PAL=['#2457d6','#14804a','#b7791f','#c53b43','#7b3fb4','#0e8fa3','#d4672a','#5b6b86','#a3367a','#4f8a10'];
+function donut(segs,center,cap){const tot=segs.reduce((a,s)=>a+s.v,0);let off=25,arcs='';
+ if(tot>0)segs.forEach(s=>{if(s.v<=0)return;const pct=s.v/tot*100;arcs+=`<circle cx="21" cy="21" r="15.9155" fill="none" stroke="${s.c}" stroke-width="5.2" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="${off}"/>`;off-=pct});
+ return `<svg viewBox="0 0 42 42" role="img"><circle cx="21" cy="21" r="15.9155" fill="none" stroke="#eef2f8" stroke-width="5.2"/>${arcs}<text class="ctr" x="21" y="22.6" text-anchor="middle">${center}</text><text class="cap" x="21" y="27" text-anchor="middle">${cap}</text></svg>`}
+function countBy(fn){const m={};records.forEach(r=>{const k=fn(r);m[k]=(m[k]||0)+1});return Object.entries(m).sort((a,b)=>b[1]-a[1]||String(a[0]).localeCompare(String(b[0]),undefined,{numeric:true}))}
+function donutBlock(id,entries,cur,attr,cap){const segs=entries.map(([k,v],i)=>({k,v,c:PAL[i%PAL.length]}));
+ $(id).innerHTML=`<div class="donut">${donut(segs.map(s=>({v:s.v,c:s.c})),records.length,cap)}<div class="legend">${segs.map(s=>`<button type="button" ${attr}="${esc(s.k)}" class="${cur===s.k?'on':''}"><i style="background:${s.c}"></i>${esc(s.k)}<b>${s.v}</b></button>`).join('')||'<span class="hint">No data</span>'}</div></div>`}
+
+function render(){
+  document.body.classList.toggle('is-admin',isAdmin);
+  $('role').textContent=isAdmin?'Admin':'Viewer (read-only)';
+  const data=filtered(),n=records.length;
+  /* status cards */
+  $('kpis').innerHTML=`<div class="card"><div class="kpi-label">Total KPM</div><div class="kpi-value">${n}</div><div class="hint" style="margin-top:4px">${data.length===n?'All records':data.length+' match filters'}</div></div>`+
+   COLS.map(([k,f,title,color])=>{const cur=$(k+'Filter').value,cnt=countBy(r=>val(r,f));
+    return `<div class="card sc"><div class="kpi-label">${title}</div><div class="rows">${cnt.map(([v,c])=>`<button type="button" class="srow ${v===BLANK?'blank':''} ${cur===v?'on':''}" data-col="${k}" data-val="${esc(v)}"><span class="nm">${v===BLANK?'No status yet':esc(v)}</span><b>${c}</b><span class="mini"><i style="width:${n?c/n*100:0}%;background:${v===BLANK?'#b9c2d1':color}"></i></span></button>`).join('')}</div></div>`}).join('');
+  /* selects */
+  const uniq=a=>[...new Set(a)].sort((x,y)=>String(x).localeCompare(String(y),undefined,{numeric:true}));
+  fillSelect('lotFilter','All LOTs',uniq(records.map(r=>r.lot||'—')));
+  fillSelect('holderFilter','All Holders',uniq(records.map(holderKey)));
+  COLS.forEach(([k,f,title])=>fillSelect(k+'Filter','All '+title.replace(' Team Status','').replace(' Status',''),uniq(records.map(r=>r[f]).filter(Boolean)),'No status yet'));
+  /* donuts */
+  donutBlock('donutLot',countBy(r=>r.lot||'—'),$('lotFilter').value,'data-lot','KPM');
+  donutBlock('donutHolder',countBy(holderKey),$('holderFilter').value,'data-holder','KPM');
+  /* timeline */
+  const per={};records.forEach(r=>EVS.forEach(([t,f])=>{const k=pkey(r[f]);if(!k)return;(per[k]=per[k]||{sent:0,con:0,abd:0})[t]++}));
+  $('timeline').innerHTML=Object.keys(per).sort().reverse().map(k=>{const p=per[k];return `<div class="time-row ${tl.p===k?'active':''}"><div class="time-date"><button class="time-select" type="button" data-p="${k}" aria-pressed="${tl.p===k&&!tl.t}">${plabel(k)}</button></div><div class="time-items"><div class="time-kpms">${EVS.filter(([t])=>p[t]).map(([t,,nm])=>`<button type="button" class="ev ${t} ${tl.p===k&&tl.t===t?'on':''}" data-p="${k}" data-t="${t}">${nm} ${p[t]}</button>`).join('')}</div></div></div>`}).join('')||'<span class="hint">No dates</span>';
+  $('modeMonth').classList.toggle('on',tlMode==='month');$('modeWeek').classList.toggle('on',tlMode==='week');
+  /* table */
+  $('tbody').innerHTML=data.map(r=>`<tr><td>${esc(r.sr)}</td><td>${esc(r.lot)}</td><td><b>${esc(r.milestone)}</b></td><td class="pkg">${esc(r.package)}</td><td>${stPill(r.hac_status)}</td><td>${dateLabel(r.sent_date)}</td><td>${stPill(r.construction_status)}</td><td>${dateLabel(r.construction_date)}</td><td>${stPill(r.abd_status)}</td><td>${dateLabel(r.abd_date)}</td><td>${esc(String(r.holder||'').replace(/\n/g,' · '))}</td><td class="note">${esc(r.notes)}</td><td class="rowactions admin-only"><button class="secondary" data-edit="${r.id}">Edit</button> <button class="ghost" data-del="${r.id}">Delete</button></td></tr>`).join('')||'<tr><td colspan="13">No matching records</td></tr>';
+  $('count').textContent=`Showing ${data.length} of ${n} records`+(tl.p?` · ${plabel(tl.p)}${tl.t?' · '+EVS.find(e=>e[0]===tl.t)[2]:''}`:'');
+}
+
+/* ---------- events ---------- */
+const toggleSel=(id,v)=>{const s=$(id);s.value=s.value===v?'':v;render()};
+$('kpis').addEventListener('click',e=>{const b=e.target.closest('.srow');if(b)toggleSel(b.dataset.col+'Filter',b.dataset.val)});
+$('donutLot').addEventListener('click',e=>{const b=e.target.closest('[data-lot]');if(b)toggleSel('lotFilter',b.dataset.lot)});
+$('donutHolder').addEventListener('click',e=>{const b=e.target.closest('[data-holder]');if(b)toggleSel('holderFilter',b.dataset.holder)});
+$('timeline').addEventListener('click',e=>{const b=e.target.closest('button[data-p]');if(!b)return;const t=b.dataset.t||null;tl=(tl.p===b.dataset.p&&tl.t===t)?{p:null,t:null}:{p:b.dataset.p,t};render()});
+$('clearTl').onclick=()=>{tl={p:null,t:null};render()};
+$('modeMonth').onclick=()=>{tlMode='month';tl={p:null,t:null};render()};$('modeWeek').onclick=()=>{tlMode='week';tl={p:null,t:null};render()};
+['search','lotFilter','holderFilter','hacFilter','conFilter','abdFilter'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',render));
+$('tbody').addEventListener('click',async e=>{
+  const eb=e.target.closest('button[data-edit]'),db=e.target.closest('button[data-del]');
+  if(eb)openForm(records.find(r=>String(r.id)===eb.dataset.edit));
+  if(db){const r=records.find(x=>String(x.id)===db.dataset.del);if(!r||!confirm(`Delete ${r.milestone} (SR ${r.sr})?`))return;
+    const {error}=await sb.from(T).delete().eq('id',r.id);if(error)return fail(error,'Delete failed');load()}});
+
+/* ---------- add / edit ---------- */
+function openForm(r){editingId=r?r.id:null;$('modalTitle').textContent=r?'Edit KPM':'Add KPM';
+ const dl=f=>`<datalist id="dl_${f}">${[...new Set(records.map(x=>x[f]).filter(Boolean))].map(v=>`<option value="${esc(v)}">`).join('')}</datalist>`;
+ $('formFields').innerHTML=FORM.map(([k,l,t,list])=>`<div class="field"><label>${l}</label><input name="${k}" type="${t}" ${['milestone','package'].includes(k)?'required':''} ${list?`list="${list}"`:''} value="${esc(r?.[k]??'')}" ${k==='sr'?'readonly':''}></div>`).join('')+dl('hac_status')+dl('construction_status')+dl('abd_status');
+ $('overlay').style.display='flex'}
+$('addBtn').onclick=()=>openForm(null);$('cancelBtn').onclick=()=>$('overlay').style.display='none';
+$('recordForm').onsubmit=async e=>{e.preventDefault();
+ const o=Object.fromEntries(new FormData(e.target)),nn=v=>(v&&String(v).trim())?String(v).trim():null;
+ const obj={lot:o.lot||'',milestone:o.milestone.trim(),package:o.package.trim(),hac_status:nn(o.hac_status),sent_date:nn(o.sent_date),construction_status:nn(o.construction_status),construction_date:nn(o.construction_date),abd_status:nn(o.abd_status),abd_date:nn(o.abd_date),holder:nn(o.holder),notes:nn(o.notes)};
+ let res;
+ if(editingId){res=await sb.from(T).update(obj).eq('id',editingId)}
+ else{obj.sr=Math.max(0,...records.map(r=>Number(r.sr)||0))+1;res=await sb.from(T).insert(obj)}
+ if(res.error)return fail(res.error.code==='23505'?'This Milestone + Package already exists':res.error,'Save failed');
+ $('overlay').style.display='none';load()};
+
+/* ---------- auth ---------- */
+$('loginBtn').onclick=()=>{$('loginOverlay').style.display='flex'};$('loginCancel').onclick=()=>$('loginOverlay').style.display='none';
+$('loginForm').onsubmit=async e=>{e.preventDefault();if(!sb)return fail('App is not connected.');
+ const {error}=await sb.auth.signInWithPassword({email:$('loginEmail').value.trim(),password:$('loginPass').value});
+ if(error)return fail(error,'Login failed');$('loginOverlay').style.display='none';$('loginPass').value=''};
+$('logoutBtn').onclick=async()=>{await sb.auth.signOut()};
+
+/* ---------- Excel import / export (first sheet only) ---------- */
+const ymd=d=>{const x=new Date(d.getTime()+12*36e5);return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`};
+$('excelFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;
+ try{
+  if(!window.XLSX)throw Error('Excel library could not load. Check the internet connection.');
+  const wb=XLSX.read(await f.arrayBuffer(),{cellDates:true});
+  const ws=wb.Sheets[wb.SheetNames[0]];
+  const arr=XLSX.utils.sheet_to_json(ws,{header:1,defval:null});
+  const hi=arr.findIndex(row=>row.some(v=>String(v||'').trim()==='Milestone No.'));
+  if(hi<0)throw Error('Could not find the "Milestone No." header in the first sheet.');
+  const h=arr[hi].map(x=>String(x||'').trim().toLowerCase());
+  const ix=(...names)=>{for(const n of names){const i=h.indexOf(n.toLowerCase());if(i>=0)return i}throw Error('Missing column: '+names[0])};
+  const C={sr:ix('SR'),lot:ix('LOT'),ms:ix('Milestone No.'),pk:ix('Packge','Package'),hac:ix('HAC Status'),sent:ix('Sent Date'),con:ix('Construction Team Status'),cond:ix('Date'),abd:ix('ABD Team Status'),abdd:ix('Date2'),hold:ix('Holder'),notes:ix('Notes')};
+  const S=v=>{if(v==null)return null;const s=String(v).trim();return s?s:null};
+  const D=v=>{if(v==null||v==='')return null;if(v instanceof Date)return ymd(v);if(typeof v==='number'){const p=XLSX.SSF.parse_date_code(v);return `${p.y}-${String(p.m).padStart(2,'0')}-${String(p.d).padStart(2,'0')}`}const s=String(v).trim().slice(0,10);return /^\d{4}-\d{2}-\d{2}$/.test(s)?s:null};
+  const imported=[];
+  for(const row of arr.slice(hi+1)){
+   const ms=S(row[C.ms]),pk=S(row[C.pk]);if(!ms||!pk)continue;
+   imported.push({sr:Number(row[C.sr])||imported.length+1,lot:S(row[C.lot])||'',milestone:ms,package:pk,hac_status:S(row[C.hac]),sent_date:D(row[C.sent]),construction_status:S(row[C.con]),construction_date:D(row[C.cond]),abd_status:S(row[C.abd]),abd_date:D(row[C.abdd]),holder:S(row[C.hold]),notes:S(row[C.notes])});
+  }
+  if(!imported.length)throw Error('No records found.');
+  const key=r=>r.milestone+'||'+r.package;
+  const seen=new Set(),dup=[];imported.forEach(r=>{const k=key(r);seen.has(k)?dup.push(r.milestone):seen.add(k)});
+  if(dup.length)throw Error('Duplicate Milestone + Package in the file: '+[...new Set(dup)].join(', '));
+  const have=new Set(records.map(key)),added=imported.filter(r=>!have.has(key(r))).length,updated=imported.length-added;
+  const toRemove=records.filter(r=>!seen.has(key(r)));
+  if(!confirm(`Import from the first sheet:\n• ${added} new\n• ${updated} updated\n• ${toRemove.length} removed (not in the file)\n\nContinue?`))return;
+  for(let i=0;i<imported.length;i+=100){const {error}=await sb.from(T).upsert(imported.slice(i,i+100),{onConflict:'milestone,package'});if(error)throw error}
+  if(toRemove.length){const {error:e2}=await sb.from(T).delete().in('id',toRemove.map(r=>r.id));if(e2)throw e2}
+  tl={p:null,t:null};await load();alert('Import completed.');
+ }catch(err){fail(err,'Import failed')}finally{e.target.value=''}};
+$('exportBtn').onclick=()=>{if(!window.XLSX)return alert('Excel library could not load.');
+ const data=[['SR','LOT','Milestone No.','Package','HAC Status','Sent Date','Construction Team Status','Date','ABD Team Status','Date2','Holder','Notes'],...records.map(r=>[r.sr,r.lot,r.milestone,r.package,r.hac_status,r.sent_date,r.construction_status,r.construction_date,r.abd_status,r.abd_date,r.holder,r.notes])];
+ const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(data),'Lot 38');XLSX.writeFile(wb,'Pending_KPM_Lot38_Export.xlsx')};
+
+/* ---------- start ---------- */
+render();
+if(sb){
+ sb.auth.getSession().then(({data})=>{isAdmin=!!data.session;render()});
+ sb.auth.onAuthStateChange((_e,session)=>{isAdmin=!!session;render()});
+ sb.channel('lot38-live').on('postgres_changes',{event:'*',schema:'public',table:T},loadSoon).subscribe();
+ setInterval(()=>{if($('overlay').style.display!=='flex')load()},60000);
+ load();
+}else{$('status').textContent='Supabase library failed to load'}
+</script></body></html>
